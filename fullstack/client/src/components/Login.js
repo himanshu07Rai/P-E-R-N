@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Container,
   Card,
@@ -7,8 +8,13 @@ import {
   StyledInput,
   Button,
 } from "../syledComponents";
+import { login } from "../redux/actions/auth";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -22,8 +28,14 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    dispatch(login(inputs));
     console.log(inputs);
   };
+
+  // Redirect if logged in
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <Container>

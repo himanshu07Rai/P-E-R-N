@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 import {
   Container,
   Card,
@@ -7,8 +8,12 @@ import {
   StyledInput,
   Button,
 } from "../syledComponents";
+import { register } from "../redux/actions/auth";
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
@@ -21,15 +26,42 @@ const Register = () => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs);
+    // console.log(inputs);
+    // const config = {
+    //   headers: {
+    //     "Content-type": "Application/json",
+    //   },
+    // };
+
+    // const body = JSON.stringify(inputs);
+
+    // try {
+    //   const res = await axios.post(
+    //     "http://localhost:4000/auth/register",
+    //     body,
+    //     config
+    //   );
+    //   console.log(res.data);
+
+    //   localStorage.setItem("token", res);
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
+    dispatch(register(inputs));
+
     setInputs({
       name: "",
       email: "",
       password: "",
     });
   };
+
+  // Redirect if logged in
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
   return (
     <Container>
       <Card>
