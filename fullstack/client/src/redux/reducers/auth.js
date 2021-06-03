@@ -5,6 +5,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGOUT,
 } from "../types";
 
 const initialState = {
@@ -24,6 +25,8 @@ const func = (state = initialState, { type, payload }) => {
     case REGISTER_FAIL:
     case LOGIN_FAIL:
     case AUTH_ERROR:
+    case LOGOUT:
+      localStorage.removeItem("token");
       return {
         ...state,
         token: null,
