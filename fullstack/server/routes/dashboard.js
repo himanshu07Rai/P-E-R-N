@@ -8,7 +8,7 @@ router.get("/", authorisation, async (req, res) => {
     // res.json(req.user);
     const user = await pool.query(
       "SELECT user_name FROM fsusers WHERE user_id = $1",
-      [req.user]
+      [req.user.id]
     );
     res.json(user.rows[0]);
   } catch (error) {

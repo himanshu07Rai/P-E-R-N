@@ -7,6 +7,20 @@ const pool = require("../db/db");
 const jwtGenrator = require("../utils/jwtGenerator");
 
 const validInfo = require("../middleware/validInfo");
+const authorisation = require("../middleware/authorisation");
+
+router.get("/", authorisation, async (req, res) => {
+  try {
+    const user = await pool.query(
+      "SELECT user_name FROM fsusers WHERE user_id = $1",
+      [req.user]
+    );
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 router.post("/register", validInfo, async (req, res) => {
   try {

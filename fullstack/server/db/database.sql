@@ -9,11 +9,13 @@ CREATE TABLE fsusers(
 );
 INSERT INTO users (user_name, user_email, user_password) VALUES ('henry', 'henryly213@gmail.com', 'kthl8822');
 
-CREATE TABLE todo(
+CREATE TABLE todos(
   todo_id SERIAL,
   user_id UUID ,
-  description VARCHAR(255),
+  description VARCHAR(255) NOT NULL,
   PRIMARY KEY (todo_id),
-  FOREIGN KEY (user_id) REFERENCES users(user_id)
+  FOREIGN KEY (user_id) REFERENCES fsusers(user_id)
 );
+
+INSERT INTO todos (user_id,description) VALUES ('9e9d6793-5ced-455d-b135-04043a2008b0','Hello');
 
