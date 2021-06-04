@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-// import alert from "./alert";
+import dashboard from "./dashboard";
 import auth from "./auth";
 
-export default combineReducers({ auth });
+export default combineReducers({ auth, dashboard });

@@ -11,6 +11,7 @@ import {
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
+  loading: true,
   user: null,
 };
 
@@ -21,6 +22,16 @@ const func = (state = initialState, { type, payload }) => {
         ...state,
         isAuthenticated: true,
         user: payload,
+        loading: false,
+      };
+    case REGISTER_SUCCESS:
+    case LOGIN_SUCCESS:
+      localStorage.setItem("token", payload);
+      return {
+        ...state,
+        token: payload,
+        isAuthenticated: true,
+        loading: false,
       };
     case REGISTER_FAIL:
     case LOGIN_FAIL:
@@ -32,15 +43,9 @@ const func = (state = initialState, { type, payload }) => {
         token: null,
         isAuthenticated: false,
         user: null,
+        loading: false,
       };
-    case REGISTER_SUCCESS:
-    case LOGIN_SUCCESS:
-      localStorage.setItem("token", payload);
-      return {
-        ...state,
-        token: payload,
-        isAuthenticated: true,
-      };
+
     default:
       return state;
   }
