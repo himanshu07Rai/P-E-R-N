@@ -5,7 +5,7 @@ const authorisation = require("../middleware/authorisation");
 
 router.get("/", authorisation, async (req, res) => {
   try {
-    console.log(req.user);
+    // console.log(req.user);
     const data = await pool.query(
       "SELECT u.user_id, u.user_name,u.user_email,t.todo_id,t.description FROM fsusers as u LEFT JOIN todos as t ON u.user_id = t.user_id WHERE u.user_id = $1",
       [req.user]
@@ -19,7 +19,7 @@ router.get("/", authorisation, async (req, res) => {
 
 router.post("/", authorisation, async (req, res) => {
   try {
-    console.log(req.user);
+    // console.log(req.user);
     const { description } = req.body;
     const newTodo = await pool.query(
       "INSERT INTO todos (user_id,description) VALUES ($1,$2) RETURNING *",

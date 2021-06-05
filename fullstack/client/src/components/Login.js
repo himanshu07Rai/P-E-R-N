@@ -7,7 +7,7 @@ import {
   StyledForm,
   StyledInput,
   Button,
-} from "../syledComponents";
+} from "./syledComponents";
 import { login } from "../redux/actions/auth";
 
 const Login = () => {

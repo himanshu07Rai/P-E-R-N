@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../redux/actions/auth";
-import { loadData } from "../redux/actions/dashboard";
+import { logout } from "../../redux/actions/auth";
+import { loadData } from "../../redux/actions/dashboard";
+import AddTodo from "./AddTodo";
 
 const Dashboard = () => {
   // const [data, setData] = useState(null);
@@ -16,6 +17,7 @@ const Dashboard = () => {
     dispatch(loadData());
   };
   useEffect(() => {
+    // console.log("j");
     fetchData();
   }, [user]);
 
@@ -25,18 +27,15 @@ const Dashboard = () => {
     return <h1>Loading</h1>;
   }
 
-  // if (data)
   return (
     <>
       <button onClick={() => dispatch(logout())}>Logout</button>
+      <AddTodo />
       {data.map((todo) => (
         <h1 key={todo.todo_id}>{todo.description}</h1>
       ))}
     </>
   );
-  // else {
-  //   return <h1>Loading</h1>;
-  // }
 };
 
 export default Dashboard;
