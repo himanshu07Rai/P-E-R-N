@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DATA_LOADED, ADD_TODO } from "../types";
+import { DATA_LOADED, ADD_TODO, TODO_DELETED } from "../types";
 
 export const loadData = () => async (dispatch) => {
   try {
@@ -34,6 +34,20 @@ export const addTodo = (desc) => async (dispatch) => {
     dispatch({
       type: ADD_TODO,
       payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const deleteTodo = (id) => async (dispatch) => {
+  try {
+    // console.log(id);
+    const res = await axios.delete(`http://localhost:4000/todos/${id}`);
+    // console.log(res.data);
+    dispatch({
+      type: TODO_DELETED,
+      payload: id,
     });
   } catch (error) {
     console.log(error.message);

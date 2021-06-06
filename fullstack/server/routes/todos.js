@@ -55,9 +55,9 @@ router.delete("/:id", authorisation, async (req, res) => {
     // const { description } = req.body; //set
     const deletedTodo = await pool.query(
       "DELETE FROM todos where todo_id = $1  AND user_id=$2 RETURNING *",
-      [id, req.user.id]
+      [id, req.user]
     );
-    console.log(deletedTodo);
+    // console.log(deletedTodo);
     if (deletedTodo.rows.length === 0) {
       return res.json("This isn't your todo");
     }

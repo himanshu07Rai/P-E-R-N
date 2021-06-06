@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/auth";
 import { loadData } from "../../redux/actions/dashboard";
 import AddTodo from "./AddTodo";
+import ListTodos from "./ListTodos";
 
 const Dashboard = () => {
   // const [data, setData] = useState(null);
@@ -26,14 +27,14 @@ const Dashboard = () => {
   if (loading) {
     return <h1>Loading</h1>;
   }
+  // console.log(data);
 
+  if (data.length == 0) return <h1>Loading</h1>;
   return (
     <>
       <button onClick={() => dispatch(logout())}>Logout</button>
       <AddTodo />
-      {data.map((todo) => (
-        <h1 key={todo.todo_id}>{todo.description}</h1>
-      ))}
+      <ListTodos todos={data} />
     </>
   );
 };

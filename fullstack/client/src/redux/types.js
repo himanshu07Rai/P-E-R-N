@@ -9,3 +9,4 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
 export const DATA_LOADED = "DATA_LOADED";
 export const ADD_TODO = "ADD_TODO";
+export const TODO_DELETED = "TODO_DELETED";
