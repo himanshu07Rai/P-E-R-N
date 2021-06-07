@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { deleteTodo } from "../../redux/actions/dashboard";
+import { deleteTodo, selectTodo } from "../../redux/actions/dashboard";
 
 const StyledUl = styled.ul`
   padding: 0;
@@ -30,21 +30,31 @@ const StyledButton = styled.button`
 const ListTodos = ({ todos }) => {
   const localTodos = todos.filter((todo) => todo.todo_id !== null);
   const dispatch = useDispatch();
+  // const toEdit = useSelector((state) => state.dashboard.toEdit);
   const onDeleteClick = (id) => {
     // console.log(id);
     dispatch(deleteTodo(id));
   };
   //   console.log(todos);
   //   console.log(localTodos);
+
+  const handleEditClick = (id) => {
+    dispatch(selectTodo(id));
+  };
   if (todos) {
-    if (localTodos.length == 0) return <h1>No todos!</h1>;
+    if (localTodos.length === 0) return <h1>No todos!</h1>;
     else {
       return (
         <StyledUl>
           {localTodos.map((todo) => (
             <StyledLi key={todo.todo_id}>
               {todo.description}
-              <StyledButton type="button">Edit</StyledButton>
+              <StyledButton
+                type="button"
+                onClick={(e) => handleEditClick(todo.todo_id)}
+              >
+                Edit
+              </StyledButton>
               <StyledButton
                 type="button"
                 onClick={() => onDeleteClick(todo.todo_id)}

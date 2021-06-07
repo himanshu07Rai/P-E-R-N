@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { addTodo } from "../../redux/actions/dashboard";
+import { addTodo, editTodo, textChange } from "../../redux/actions/dashboard";
 
 const StyledForm = styled.form`
   /* padding: 1.2rem 0; */
@@ -35,12 +35,20 @@ const Button = styled.button`
 `;
 const AddTodo = () => {
   const dispatch = useDispatch();
-  const [description, setDescription] = useState("");
+  const description = useSelector((state) => state.dashboard.text);
+  const selectedId = useSelector((state) => state.dashboard.selectedId);
+  console.log(selectedId);
+
+  console.log(description);
+  // const [description, setDescription] = useState("");
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(description);
-    dispatch(addTodo({ description }));
-    setDescription("");
+    if (selectedId) {
+      dispatch(editTodo({ description, selectedId }));
+    } else {
+      dispatch(addTodo({ description }));
+    }
   };
   return (
     <>
@@ -50,7 +58,7 @@ const AddTodo = () => {
           type="text"
           placeholder="Description.."
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => dispatch(textChange(e.target.value))}
         />
         <Button type="submit">Add</Button>
       </StyledForm>

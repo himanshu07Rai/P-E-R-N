@@ -29,10 +29,11 @@ const Dashboard = () => {
   }
   // console.log(data);
 
-  if (data.length == 0) return <h1>Loading</h1>;
+  if (data.length === 0) return <h1>Loading</h1>;
   return (
     <>
       <button onClick={() => dispatch(logout())}>Logout</button>
+      <h1>Hi {user.user_name}</h1>
       <AddTodo />
       <ListTodos todos={data} />
     </>

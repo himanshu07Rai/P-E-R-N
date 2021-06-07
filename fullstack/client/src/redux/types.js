@@ -10,3 +10,6 @@ export const LOGOUT = "LOGOUT";
 export const DATA_LOADED = "DATA_LOADED";
 export const ADD_TODO = "ADD_TODO";
 export const TODO_DELETED = "TODO_DELETED";
+export const SELECT_TODO = "SELECT_TODO";
+export const TEXT_CHANGE = "TEXT_CHANGE";
+export const EDIT_TODO = "EDIT_TODO";
